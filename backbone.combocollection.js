@@ -27,19 +27,27 @@
 		Collection = comboCollectionOptions.Collection.extend({
 
 			initialize: function() {
+				this.keepComboCollectionUpdated();
+
+				// call the base collection's initialize function
+				comboCollectionOptions.Collection.prototype.initialize.apply(this, arguments);
+			},
+
+			keepComboCollectionUpdated: function() {
+				// initial update, build the collection from passed in collections
+				this.updateComboCollection();
+				// update the combo collection any time one of the passed in collections changes
+				_.each(arrayOfCollections, _.bind(function(collection) {
+					this.listenTo(collection, 'add remove change reset sort', this.updateComboCollection);
+				}, this));
+			},
+			updateComboCollection: function() {
 				var
 				models = [];
 
 				_.each(arrayOfCollections, _.bind(function(collection) {
-
-					// re initialize any time one of the collections changes
-					this.listenToOnce(collection, 'add remove change reset sort', _.bind(function() {
-						this.initialize();
-					}, this));
-
 					// add the models from all of the collections together into one array
 					models = models.concat(collection.models);
-
 				}, this));
 
 				this.reset(models);
