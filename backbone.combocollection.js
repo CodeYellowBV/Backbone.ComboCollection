@@ -29,7 +29,7 @@
 			initialize: function() {
 				this.keepComboCollectionUpdated();
 
-				// call the base collection's initialize function
+				// call the passed in collection's initialize function
 				comboCollectionOptions.Collection.prototype.initialize.apply(this, arguments);
 			},
 
@@ -49,6 +49,15 @@
 					// add the models from all of the collections together into one array
 					models = models.concat(collection.models);
 				}, this));
+
+				// allow the models to be parsed if needed
+				// (this function has to be on the collection passed in, ComboCollection can't be extended)
+				// keep in mind that these are references to the same models in the collections
+				// passed into arrayOfCollections, so if changes need to apply to the models in
+				// the comboCollection, but not the original collections, the models should be cloned first
+				if (typeof this.comboCollectionParseModels === 'function') {
+					models = this.comboCollectionParseModels(models);
+				}
 
 				this.reset(models);
 			}
