@@ -38,7 +38,7 @@
 				this.updateComboCollection();
 				// update the combo collection any time one of the passed in collections changes
 				_.each(arrayOfCollections, _.bind(function(collection) {
-					this.listenTo(collection, 'add remove change reset sort', this.updateComboCollection);
+					this.listenTo(collection, 'add remove change reset sort', _.debounce(this.updateComboCollection, 100));
 				}, this));
 			},
 			updateComboCollection: function() {
