@@ -1,0 +1,22 @@
+{
+  "name": "backbone.combocollection",
+  "description": "Creates an always up to date collection containing the children of 2 or more other collections.",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Alex Kinnee",
+  "contributors": [
+    {
+      "name": "Alex Kinnee"
+    }, {
+      "name": "AB Zainuddin",
+      "email": "burhan@codeyellow.nl"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akinnee/Backbone.ComboCollection"
+  },
+  "main": "backbone.combocollection",
+  "dependencies": {},
+  "devDependencies": {}
+}
